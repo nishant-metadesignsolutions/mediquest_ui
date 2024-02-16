@@ -15,6 +15,7 @@ import PaymentFailurePage from './Pages/PaymentFailurePage';
 import PaymentPendingPage from './Pages/PaymentPendingPage';
 import { Home2 } from './Pages/Home2';
 import { EventDetailsProvider } from './context/EventDetailsProvider';
+import { LocationDetailsProvider } from './context/LocationDetailsProvider';
 import React from 'react';
 
 export class PluginMediquestUiClient extends Plugin {
@@ -81,7 +82,7 @@ export class PluginMediquestUiClient extends Plugin {
       path: '/contact-us',
       element: <ContactUs />,
     });
-    this.app.addProvider(EventDetailsProvider);
+    this.app.addProviders([EventDetailsProvider, LocationDetailsProvider]);
   }
 }
 

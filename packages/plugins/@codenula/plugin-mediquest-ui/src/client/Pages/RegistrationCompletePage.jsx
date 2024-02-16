@@ -9,7 +9,8 @@ import StyledText from '../Components/StyledText';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { useAllEventsData } from '../context/EventDetailsProvider';
-import { getCountry, getCountryCode } from '../utils/getData';
+import { getCountryCode } from '../utils/getData';
+import { useAllLoactionData } from '../context/LocationDetailsProvider.jsx';
 import { getPaymentCategories } from '../utils/getData';
 
 const loadScript = (src) => {
@@ -31,6 +32,7 @@ const loadScript = (src) => {
 
 const RegistrationCompletePage = () => {
   const [coupon, setCoupon] = useState('');
+  const { countryList } = useAllLoactionData();
   const navigate = useNavigate();
   const { eventId, formValues, amtToPay, netAmt, attendeeId, orderId } = useParams();
   const decodedFormValues = JSON.parse(decodeURIComponent(formValues));
@@ -82,7 +84,7 @@ const RegistrationCompletePage = () => {
           attendeeId: attendeeId,
           eventId: eventId,
         };
-        const country = await getCountry();
+        const country = countryList;
         const countryCode = await getCountryCode(allFormValues.countryId, country);
         const mobNo = countryCode + allFormValues.contact_number;
         const failedPayment = await fetch('http://localhost:15000/api/razorPay:paymentFailed', {
@@ -99,7 +101,6 @@ const RegistrationCompletePage = () => {
           ),
         );
       }
-      // console.log(response);
     });
     setTimeout(() => {
       paymentObject.on('payment.authorized', async function (response) {
@@ -107,10 +108,8 @@ const RegistrationCompletePage = () => {
           paymentObject.close();
           setLoading(true);
           const data = await response.json();
-          console.log('Payment Pending', data);
           navigate(`/payment-pending`);
         }
-        // console.log(response);
       });
     }, 7000);
   };

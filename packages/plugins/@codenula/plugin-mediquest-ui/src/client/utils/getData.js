@@ -53,7 +53,7 @@ export function getCountryCode(countryId, country) {
   var countryObj;
   country.forEach((c) => {
     if (c.country_name == countryId) {
-      countryObj = c;
+      return c.country_code;
     }
   });
   const countryCode = countryObj.country_code;

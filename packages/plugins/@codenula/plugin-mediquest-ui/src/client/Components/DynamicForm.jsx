@@ -9,17 +9,19 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { sendEmail, sendSMS } from '../utils/sms.js';
 import { useAllEventsData } from '../context/EventDetailsProvider';
-import {
-  getCity,
-  getState,
-  getCountry,
-  getPaymentCategories,
-  getCountryCode,
-  getAllCoupons,
-} from '../utils/getData.js';
+import { useAllLoactionData } from '../context/LocationDetailsProvider.jsx';
+import { getPaymentCategories, getCountryCode, getAllCoupons } from '../utils/getData.js';
 import { createOrder } from '../utils/payment.js';
 import { updateCoupon } from '../utils/coupon.js';
 import { createAttendee } from '../utils/attendee.js';
+import {
+  validatePhoneNumber,
+  validatePhoneNumberInternational,
+  validateEmail,
+  validatePincodeInternational,
+  validatePincode,
+  validateCoupon,
+} from '../utils/validation.js';
 import StyledText from './StyledText.jsx';
 
 const formDesign = [
@@ -38,115 +40,6 @@ const formDesign = [
   { fields: ['discountCouponId'], style: 'form-row2' },
 ];
 
-function validatePhoneNumber() {
-  if (document.getElementById('phoneNumber')) {
-    const phoneNumberInput = document.getElementById('phoneNumber');
-    const phoneNumberError = document.getElementById('phoneNumber-error');
-
-    // Phone Number Validation
-    const phoneNumberPattern = /^[0-9]{10}$/;
-    if (!phoneNumberPattern.test(phoneNumberInput.value)) {
-      phoneNumberError.textContent = 'Enter a valid 10-digit phone number';
-      return false;
-    } else {
-      phoneNumberError.textContent = '';
-    }
-  }
-
-  return true;
-}
-
-function validatePhoneNumberInternational() {
-  if (document.getElementById('phoneNumber')) {
-    const phoneNumberInput = document.getElementById('phoneNumber');
-    const phoneNumberError = document.getElementById('phoneNumber-error');
-
-    // Phone Number Validation
-    const phoneNumberPattern = /^\+?[0-9\s-]{10,15}$/;
-    if (!phoneNumberPattern.test(phoneNumberInput.value)) {
-      phoneNumberError.textContent = 'Enter a valid phone number';
-      return false;
-    } else {
-      phoneNumberError.textContent = '';
-    }
-  }
-
-  return true;
-}
-
-function validateEmail() {
-  if (document.getElementById('email')) {
-    const emailInput = document.getElementById('email');
-    const emailError = document.getElementById('email-error');
-
-    // Email Validation
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(emailInput.value)) {
-      emailError.textContent = 'Enter a valid email address';
-      return false;
-    } else {
-      emailError.textContent = '';
-    }
-  }
-
-  return true;
-}
-
-function validatePincodeInternational() {
-  if (document.getElementById('pincode')) {
-    const pincodeInput = document.getElementById('pincode');
-    const pincodeError = document.getElementById('pincode-error');
-
-    // Pincode Validation
-    const pincodePattern = /^[0-9a-zA-Z\s-]{3,10}$/;
-    if (!pincodePattern.test(pincodeInput.value)) {
-      pincodeError.textContent = 'Enter a valid postal code';
-      return false;
-    } else {
-      pincodeError.textContent = '';
-    }
-  }
-
-  return true;
-}
-
-function validatePincode() {
-  if (document.getElementById('pincode')) {
-    const pincodeInput = document.getElementById('pincode');
-    const pincodeError = document.getElementById('pincode-error');
-
-    // Pincode Validation
-    const pincodePattern = /^[0-9]{6}$/;
-    if (!pincodePattern.test(pincodeInput.value)) {
-      pincodeError.textContent = 'Enter a valid 6-digit pincode';
-      return false;
-    } else {
-      pincodeError.textContent = '';
-    }
-  }
-
-  return true;
-}
-
-function validateCoupon(isCoupon) {
-  if (document.getElementById('coupon')) {
-    const couponInput = document.getElementById('coupon');
-    const couponError = document.getElementById('coupon-error');
-
-    // Coupon Validation
-    if (!isCoupon) {
-      couponError.textContent = 'Please enter a valid coupon';
-      return false;
-    } else if (!couponInput.textContent) {
-      couponError.textContent = '';
-    } else {
-      couponError.textContent = '';
-    }
-
-    return true;
-  }
-}
-
 export const DynamicForm = ({ formData }) => {
   const [city, setCity] = useState([]);
   const [state, setState] = useState([]);
@@ -160,9 +53,8 @@ export const DynamicForm = ({ formData }) => {
   const [filteredCities, setFilteredCities] = useState([]);
   const [filteredStates, setFilteredStates] = useState([]);
   const formRef = useRef(null);
-
   const { allEvents, loading, footerDetails } = useAllEventsData();
-
+  const { countryList, stateList, cityList, loadingLocation } = useAllLoactionData();
   const [initialFormValues, setInitialFormValues] = useState({});
   const [isFormEdited, setFormEdited] = useState(false);
   const accEvent = useMemo(() => {
@@ -199,18 +91,15 @@ export const DynamicForm = ({ formData }) => {
     async function fetchData() {
       try {
         if (formData.cityId !== null && formData.cityId !== undefined && formData.cityId !== '') {
-          const cityNames = await getCity();
-          setCity(cityNames);
+          setCity(cityList);
         }
 
         if (formData.stateId !== null && formData.stateId !== undefined && formData.stateId !== '') {
-          const stateNames = await getState();
-          setState(stateNames);
+          setState(stateList);
         }
 
         if (formData.countryId !== null && formData.countryId !== undefined && formData.countryId !== '') {
-          const countryNames = await getCountry();
-          setCountry(countryNames);
+          setCountry(countryList);
         }
 
         if (formData.paymentId !== null && formData.paymentId !== undefined && formData.paymentId !== '') {
@@ -452,8 +341,6 @@ export const DynamicForm = ({ formData }) => {
         </>
       );
     } else if (key === 'gender_others') {
-      // Render multiple select checkbox for arrays
-      // const isDescriptionOfPracticeOther = formValues.description_of_practice === 'Others';
       return (
         <>
           <div className="form-col">
@@ -472,8 +359,6 @@ export const DynamicForm = ({ formData }) => {
         </>
       );
     } else if (key === 'description_of_practice' && Array.isArray(value) && value.length > 0) {
-      // Render multiple select checkbox for arrays
-      // const isDescriptionOfPracticeOther = formValues.description_of_practice === 'Others';
       return (
         <>
           <div className="form-col">
@@ -847,7 +732,6 @@ export const DynamicForm = ({ formData }) => {
     event.preventDefault();
     formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     async () => setLoading(true);
-    validateCoupon(true);
     // await updateCoupon(2, 49).then(console.log('yes coupon updated: pleack check!!'));
 
     // Check email and phone number validations
@@ -869,34 +753,7 @@ export const DynamicForm = ({ formData }) => {
     setFormEdited(true);
 
     var myC = 'Invalid Code';
-    var toPay;
     //   console.log(payment);
-    const curDate = new Date();
-    payment.forEach((i) => {
-      if (i.category_name == formValues.paymentId) {
-        if (curDate <= new Date(i.early_bird_date)) {
-          if (formValues.countryId == 'India') {
-            toPay = i.early_bird_inr;
-          } else {
-            toPay = i.payment_amount;
-          }
-        } else if (curDate > new Date(i.early_bird_date) && curDate <= new Date(i.advanced_date)) {
-          if (formValues.countryId == 'India') {
-            toPay = i.advanced_rate_inr;
-          } else {
-            toPay = i.advanced_rate;
-          }
-        } else {
-          if (formValues.countryId == 'India') {
-            toPay = i.regular_rate_inr;
-          } else {
-            toPay = i.regular_rate;
-          }
-        }
-        amtToPay = toPay;
-      }
-    });
-    console.log(amtToPay);
     if (
       formValues.discountCouponId !== null &&
       formValues.discountCouponId !== undefined &&
@@ -913,17 +770,12 @@ export const DynamicForm = ({ formData }) => {
       });
 
       if (myC !== 'Invalid Code') {
-        amtToPay =
-          parseInt(toPay) -
-          Math.min(myC.coupon_max_amount, parseInt((parseInt(toPay) * parseInt(myC.coupon_discount_percentage)) / 100));
         validateCoupon(true);
       } else {
         validateCoupon(false);
         return;
       }
     }
-    console.log(amtToPay);
-    // console.log(modalValues);
     setTimeout(() => {
       setLoading(false);
       setPopupOpen(true);
@@ -979,12 +831,15 @@ export const DynamicForm = ({ formData }) => {
             transactionCharge = i.transaction_dollars;
           }
         }
-        amtToPay = toPay;
-        netAmt = toPay;
+        if (toPay) {
+          amtToPay = toPay;
+          netAmt = toPay;
+          return;
+        }
       }
     });
-    toPay = parseInt(toPay) + (parseInt(toPay) * parseInt(serviceCharge) / 100); // adding service charge
-    toPay = parseInt(toPay) + (parseInt(toPay) * parseInt(transactionCharge) / 100); // adding transaction charge
+    toPay = parseInt(toPay) + (parseInt(toPay) * parseInt(serviceCharge)) / 100; // adding service charge
+    toPay = parseInt(toPay) + (parseInt(toPay) * parseInt(transactionCharge)) / 100; // adding transaction charge
     amtToPay = toPay;
     if (formValues.discountCouponId) {
       const myC = allDiscount.find((i) => i.coupon_code == formValues.discountCouponId);
@@ -1020,11 +875,8 @@ export const DynamicForm = ({ formData }) => {
     navigate(navigatePath);
     setPopupOpen(false);
   };
-
-  if (!event) {
-    return <Loader />;
-  }
-  if (loading) {
+  
+  if (!event || loading || loadingLocation) {
     return <Loader />;
   }
 

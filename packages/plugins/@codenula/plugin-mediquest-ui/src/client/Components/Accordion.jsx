@@ -31,12 +31,11 @@ export const AccordionItem = ({ title, content, pdfLink }) => {
                 <iframe
                   src={pdfLink}
                   frameBorder={0}
+                  allowFullScreen
                   style={{ width: '80%', minHeight: '540px', height: '100%', justifyContent: 'center' }}
                 ></iframe>
               </div>
             )}
-
-            {/* <div className="panel">{content}</div> */}
           </>
         )}
       </div>
