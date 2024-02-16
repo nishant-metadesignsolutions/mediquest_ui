@@ -1,0 +1,32 @@
+/* Add this styling to your PaymentFailurePage.css file or include it in your component */
+
+.payment-failure-container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .payment-failure-container h2 {
+    color: #e74c3c;
+  }
+  
+  .payment-failure-container p {
+    margin-bottom: 15px;
+  }
+  
+  button[type="button"] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #2980b9;
+  }
+  

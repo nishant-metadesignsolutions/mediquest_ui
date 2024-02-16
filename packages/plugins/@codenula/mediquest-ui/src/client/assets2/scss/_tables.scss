@@ -1,0 +1,63 @@
+.tables {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #000;
+    thead {
+
+    }
+    th,td {
+        vertical-align: top;
+    }
+    th{
+        padding: 10px 15px;
+        background-color: #004374;
+        border-left: 1px solid #fff;
+        text-align: left;
+        color: #fff;
+        font-family: 'Avenir Next World Demi';
+        &:first-child {
+            border-left: none;
+        }
+    }
+    td {
+        padding: 10px 20px;
+        border-bottom: 1px solid #000;
+        border-left: 1px solid #000;
+        &:first-child {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+    .subtext {
+        font-size: 20px;
+    }
+    .pink {
+        background-color: #FE929E;
+    }
+    .yellow {
+        background-color: #FFC821;
+    }
+    .white {
+        background-color: #fff;
+    }
+    .gray {
+        background-color: #E9E8E9;
+    }
+    .bolds {
+        font-family: 'Avenir Next World Demi';
+    }
+}
+
+.category-tables-md {
+    max-width: 600px;
+}
+
+@media(max-width: 991px) {
+    .tables {
+        .subtext {
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+.program-all-details {
+}
+
+.program-overview {
+  background-color: #5b7790;
+  padding: 5% 10%;
+  text-align: center;
+  color: #ffffff;
+  border-bottom: 1px solid #ffc821;
+}
+
+.program-overview-title {
+  /* margin-top: 74px; */
+  font-size: 36px;
+  font-weight: bold;
+}
+.program-overview-details {
+  padding: 10px 54px;
+  font-size: 18px;
+  font-weight: lighter;
+}
+
+.program-overview-know-more-btn {
+  min-width: 172px;
+  min-height: 35px;
+  padding: 6px 10px;
+  border: 1px solid #ffc821;
+  border-radius: 6px;
+  background-color: #ffc821;
+  cursor: pointer;
+  color: #0a0a0a;
+  line-height: 22px;
+  letter-spacing: 7%;
+  font-size: 18px;
+}
+
+.program-information {
+    background-color: #F6F5F5;
+    padding: 2% 10%;
+    text-align: center;
+    border-bottom: 1px solid #ffc821;
+  }
+
+.program-information-title {
+    font-size: 34px;
+    padding: 57px 0px 37px;
+    color: #000000;
+}

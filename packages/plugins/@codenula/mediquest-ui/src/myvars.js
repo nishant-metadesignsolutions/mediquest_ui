@@ -1,0 +1,5 @@
+export const COLLECTION_AUTH_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVOYW1lIjoicm9vdCIsImlhdCI6MTcwNTM4MzAwMiwiZXhwIjozMzI2Mjk4MzAwMn0.7ab1DsUS9wzkfgLp83KZ14zj3oM9_-gweWFyvhtCNWA';
+
+export const RAZORPAY_API_KEY = 'rzp_test_5dM0wUXflNtTqN';
+export const RAZORPAY_API_SECRET = 'sIz0DwXI8HMYmcF3mtWL1jlG';

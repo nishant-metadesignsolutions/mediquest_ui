@@ -1,0 +1,124 @@
+.footer-cntr {
+    background-color: #FCFCFC;
+    border-top: 4px solid #FFAE00;    
+    padding-top: 60px;
+    text-align: center;
+    overflow: auto;
+    font-family: 'Avenir Next World Medium';
+}
+.footer-logo {
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+.footer-navbar {
+    .menu-list {
+        li {
+            &:hover {
+                a {
+                    border: 0;
+                    border-right: 1px solid #000000;
+                }
+            }
+            a {
+                border: 0;
+                border-radius: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                font-family: 'Avenir Next World Medium';
+                letter-spacing: 0.01em;
+                text-transform: inherit;
+                border-right: 1px solid #000000;
+            }   
+            &:last-child {
+                a {
+                    border-right: 0;
+                    &:hover {
+                        a {
+                            border: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.footer-logo {
+    margin-bottom: 30px;
+}
+.footer-navbar {
+    margin-bottom: 25px;
+}
+.rights {
+    border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
+    padding-top: 30px;
+    p {
+        margin-bottom: 30px;
+        font-family: 'Avenir Next World Regular'; 
+        font-size: 16px;
+        line-height: 140%;
+        letter-spacing: 0.02em;
+    }
+}
+@media (max-width: 1199px) {
+    .footer-navbar {
+        .menu-list {
+            li {
+                a {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 991px) {
+    .rights {
+        p {
+            font-size: 16px;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-cntr {
+        border-top: 2px solid #FFAE00;
+        margin-top: 30px;
+        padding-top: 30px;
+        overflow: visible;
+    }
+    .footer-navbar {
+        margin-bottom: 12px;
+        .menu-list {
+            flex-wrap: wrap;
+            opacity: 1;
+            position: static;
+            background-color: transparent;
+            box-shadow: none;
+            li {
+                width: auto;
+                border-bottom: 0;
+                a {
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    .footer-logo {
+        margin-bottom: 15px;
+    }
+    .rights {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        p {
+            margin-bottom: 15px;
+            font-size: 12px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

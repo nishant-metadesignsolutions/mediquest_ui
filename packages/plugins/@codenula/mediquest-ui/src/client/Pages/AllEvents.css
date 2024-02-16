@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100;300;400;500;600;700;800&family=Oswald:wght@200;300;400;500;600;700&family=Poppins&display=swap');
+
+.hero{
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    margin: 25px 2% 0px 10%;
+    letter-spacing: 0.03em;
+    justify-content: center;
+}
+.hero-image{
+    width: 550px;
+    height: 470;
+    
+}
+.hero-details{
+    display: flex;
+    flex-direction: column;
+    min-width: 39%;
+    max-width: 39%;
+    margin-left: 4px;
+}
+.hero-heading{
+    font-size: 51px;
+    margin: 35px 0px 5px 10px;
+    font-weight: bold;
+    letter-spacing: normal;
+}
+.hero-sub{
+    font-size: 19px;
+    margin-left: 25px;
+    /* margin-right: 35%; */
+    max-width: 95%;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+    /* line-height: 1.4em; */
+    margin-bottom: 20px;
+}
+
+.hero-basic{
+    font-family: 'Lato', sans-serif;
+    margin-left: 25px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    line-height: 1.5em;
+    font-size: 16px;
+    /* min-height: 248px; */
+    max-width: 95%;
+}
+
+.our-events {
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+    margin-bottom: 35px;
+    width: 100%;
+    height: auto;
+    /* padding: 80px 0 50px 0; */
+    align-items: center;
+  }
+  .our-events-heading {
+    text-align: center;
+    font-size: 35px;
+    color: black;
+    font-weight: bold;
+  }
