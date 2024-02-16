@@ -84,7 +84,6 @@ export class PluginMediquestUiClient extends Plugin {
       path: '/payment-pending',
       element: <PaymentPendingPage />,
     });
-    // this.app.router.remove(`/`);
     this.app.router.add(`/home2`, {
       path: '/home2',
       element: <Home2 />,
