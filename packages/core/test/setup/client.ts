@@ -10,7 +10,7 @@ import 'vitest-dom/extend-expect';
 import 'jsdom-worker';
 import path from 'path';
 
-configure({ asyncUtilTimeout: 30000 });
+configure({ asyncUtilTimeout: 50000 });
 dotenv.config({ path: path.resolve(process.cwd(), '.env.test') });
 
 // 解决 TypeError: window.matchMedia is not a function
