@@ -11,7 +11,7 @@ import Up_Prime from '../Assets/Up_Prime.webp';
 import eCard1 from '../Assets/eCard1.webp';
 import eCard2 from '../Assets/eCard2.webp';
 import eCard3 from '../Assets/eCard3.webp';
-import { AllEventData } from '../index.tsx';
+// import { AllEventData } from '../index.tsx';
 
 const allEvents = [
   {
@@ -81,9 +81,9 @@ export default () => {
 
       <div className="our-events">
         <div className="our-events-heading">Our Events</div>
-        {AllEventData.map((event) => (
+        {/* {AllEventData.map((event) => (
           <EventCard key={event.id} event={event} className="our-events-card" />
-        ))}
+        ))} */}
       </div>
 
       <div className="our-service">
