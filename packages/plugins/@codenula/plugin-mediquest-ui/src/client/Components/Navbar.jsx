@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
-import jQueryJsSrc from '../assets2/js/jquery.js';
-import customJsSrc from '../assets2/js/custom.js';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
 import Loader from './Loader';
@@ -14,21 +12,7 @@ const Navbar = () => {
   const [myLoader, setMyLoader] = useState(true);
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const accEvent = allEvents[1];
-
-  useEffect(() => {
-    (function () {
-      const script1 = document.createElement('script');
-      script1.src = jQueryJsSrc;
-      script1.async = true;
-      document.body.appendChild(script1);
-    })();
-    (function () {
-      const script2 = document.createElement('script');
-      script2.src = customJsSrc;
-      script2.async = true;
-      document.body.appendChild(script2);
-    })();
-  });
+  
   const handleToggleMenu = () => {
     var target = document.querySelector('.header-navbar .menu-list');
     if (target.classList.contains('show')) {
