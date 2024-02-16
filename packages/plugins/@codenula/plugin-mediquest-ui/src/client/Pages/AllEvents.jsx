@@ -4,25 +4,9 @@ import Footer from '../Components/Footer';
 import './AllEvents.css';
 import MonPetitTonneau from '../Assets/MonPetitTonneau.webp';
 import EventCard from '../Components/EventCard';
-import { AllEventData } from '../index.tsx';
 
 export default () => {
-  // const [newEvents, setEvents] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // const response = await fetch('src/Assets/data/events.json');
-  //       // const data = await response.json();
-  //       console.log(data);
-  //       setEvents(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // });
+ 
 
   return (
     <>
@@ -48,12 +32,12 @@ export default () => {
 
       <div className="our-events">
         <div className="our-events-heading">Our Events</div>
-        {AllEventData.map((event) => (
+        {/* {AllEventData.map((event) => (
           <EventCard key={event.id} event={event} className="our-events-card" />
-        ))}
+        ))} */}
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
