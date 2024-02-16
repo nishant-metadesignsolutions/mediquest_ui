@@ -728,11 +728,10 @@ export const DynamicForm = ({ formData }) => {
     fetchData();
   }, [allDiscount]);
   var amtToPay;
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    async () => setLoading(true);
-    // await updateCoupon(2, 49).then(console.log('yes coupon updated: pleack check!!'));
+    setLoading(true);
 
     // Check email and phone number validations
     if (!validateEmail()) {
@@ -752,29 +751,15 @@ export const DynamicForm = ({ formData }) => {
     setInitialFormValues(formValues);
     setFormEdited(true);
 
-    var myC = 'Invalid Code';
-    //   console.log(payment);
-    if (
-      formValues.discountCouponId !== null &&
-      formValues.discountCouponId !== undefined &&
-      formValues.discountCouponId !== ''
-    ) {
-      allDiscount.forEach((i) => {
-        if (
-          i.coupon_code == formValues.discountCouponId &&
-          new Date(i.coupon_validity) >= new Date() &&
-          i.coupon_user_count > 0
-        ) {
-          myC = i;
-        }
-      });
-
-      if (myC !== 'Invalid Code') {
-        validateCoupon(true);
-      } else {
-        validateCoupon(false);
-        return;
-      }
+    if (formValues.discountCouponId) {
+      const validCoupon = allDiscount.some(i =>
+        i.coupon_code == formValues.discountCouponId &&
+        new Date(i.coupon_validity) >= new Date() &&
+        i.coupon_user_count > 0
+      );
+  
+      validateCoupon(validCoupon);
+      if (!validCoupon) return;
     }
     setTimeout(() => {
       setLoading(false);
