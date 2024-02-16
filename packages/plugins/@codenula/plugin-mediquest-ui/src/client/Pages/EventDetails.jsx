@@ -16,7 +16,7 @@ import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
 import { getAgendaDetails } from '../utils/getData';
 
-export default ({ events }) => {
+export default () => {
   const { eventId } = useParams();
   const { allEvents, loading, footerDetails } = useAllEventsData();
   const [myLoader, setLoader] = useState(true);

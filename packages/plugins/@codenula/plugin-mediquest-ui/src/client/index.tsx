@@ -1,14 +1,8 @@
 import { Plugin } from '@nocobase/client';
-import React from 'react';
-// import { Home } from './Pages/Home';
-
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './assets2/css/main.min.css';
 import './assets2/css/external.css';
-// import jQueryJsSrc from './assets2/js/jquery.js';
-// import customJsSrc from './assets2/js/custom.js';
 import Navbar from './Components/Navbar';
-import Home from './Pages/Home'; // Import your components for different routes
+import Home from './Pages/Home';
 import AllEvents from './Pages/AllEvents';
 import About from './Pages/About';
 import Plans from './Pages/Plans';
@@ -22,34 +16,9 @@ import RegistrationCompletePage from './Pages/RegistrationCompletePage';
 import PaymentSuccessPage from './Pages/PaymentSuccessPage';
 import PaymentFailurePage from './Pages/PaymentFailurePage';
 import PaymentPendingPage from './Pages/PaymentPendingPage';
-import { COLLECTION_AUTH_TOKEN } from '../myvars.js';
 import { Home2 } from './Pages/Home2';
 import { EventDetailsProvider } from './context/EventDetailsProvider';
-
-// (function () {
-//   const script1 = document.createElement('script');
-//   script1.src = jQueryJsSrc;
-//   script1.async = true;
-//   document.body.appendChild(script1);
-// })();
-// (function () {
-//   const script2 = document.createElement('script');
-//   script2.src = customJsSrc;
-//   script2.async = true;
-//   document.body.appendChild(script2);
-// })();
-
-const AllEventsUrl =
-  'https://mediquest.codenula.com/api/event:list?appends%5B%5D=event_banner&appends%5B%5D=event_card_image&pageSize=10000';
-const AllEvent = await fetch(AllEventsUrl, {
-  method: 'GET',
-  headers: {
-    Authorization: COLLECTION_AUTH_TOKEN,
-  },
-});
-const AllEventDataJSON = await AllEvent.json();
-// console.log(AllEventData.data);
-export const AllEventData = AllEventDataJSON.data;
+import React from 'react';
 
 export class PluginMediquestUiClient extends Plugin {
   async afterAdd() {
@@ -89,7 +58,7 @@ export class PluginMediquestUiClient extends Plugin {
     });
     this.app.router.add('/events/:eventId', {
       path: '/events/:eventId',
-      element: <EventDetails events={AllEventData} />,
+      element: <EventDetails />,
     });
     this.app.router.add(`/events/:eventId/register`, {
       path: '/events/:eventId/register',
