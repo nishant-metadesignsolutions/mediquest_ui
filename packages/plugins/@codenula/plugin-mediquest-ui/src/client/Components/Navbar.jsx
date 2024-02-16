@@ -1,7 +1,7 @@
 // Navbar.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
 import Loader from './Loader';
@@ -12,7 +12,7 @@ const Navbar = () => {
   const [myLoader, setMyLoader] = useState(true);
   const [activeMenuItem, setActiveMenuItem] = useState('');
   const accEvent = allEvents[1];
-  
+
   const handleToggleMenu = () => {
     var target = document.querySelector('.header-navbar .menu-list');
     if (target.classList.contains('show')) {

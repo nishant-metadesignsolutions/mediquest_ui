@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import Loader from '../Components/Loader';
 import Navbar from '../Components/Navbar';
 import Hero from '../Components/Hero';
@@ -11,7 +11,6 @@ import { Venue } from '../Components/Venue';
 import { getVenue } from '../utils/getData';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
-// import './Home2.css';
 import arrowDown from '../assets2/images/arrow-down.svg';
 
 export const Home2 = () => {

@@ -9,35 +9,6 @@ const AllEventsDataContext = createContext();
 // Custom hook to use the data context
 export const useAllEventsData = () => useContext(AllEventsDataContext);
 
-// Function to fetch data from the database
-
-// export const EventDetailsProvider = ({ children }) => {
-//   const [allEvents, setAllEvents] = useState({});
-//   const [loading, setLoading] = useState(true);
-//   useEffect(() => {
-//     (async () => {
-//       try {
-//         const AllEventsUrl =
-//           'https://mediquest.codenula.com/api/event:list?appends%5B%5D=event_card_image&appends%5B%5D=event_banner&appends%5B%5D=venue&pageSize=10000';
-//         const AllEvent = await fetch(AllEventsUrl, {
-//           method: 'GET',
-//           headers: {
-//             Authorization: COLLECTION_AUTH_TOKEN,
-//           },
-//         });
-//         const AllEventDataJSON = await AllEvent.json();
-//         // console.log(AllEventData.data);
-//         const AllEventData = AllEventDataJSON.data;
-//         setAllEvents(AllEventData);
-//         setLoading(false);
-//       } catch (error) {
-//         console.error('Error fetching data:', error);
-//         setAllEvents({}); // or handle the error appropriately
-//       }
-//     })();
-//   }, []);
-//   return <AllEventsDataContext.Provider value={{ allEvents }}>{children}</AllEventsDataContext.Provider>;
-// };
 export const EventDetailsProvider = ({ children }) => {
   const [allEvents, setAllEvents] = useState([]); // Set initial state to an empty array
   const [loading, setLoading] = useState(true);

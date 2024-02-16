@@ -2,10 +2,7 @@ import { Plugin } from '@nocobase/client';
 import './assets2/css/main.min.css';
 import './assets2/css/external.css';
 import Navbar from './Components/Navbar';
-import Home from './Pages/Home';
-import AllEvents from './Pages/AllEvents';
 import About from './Pages/About';
-import Plans from './Pages/Plans';
 import Login from './Pages/Login';
 import PaymentPage from './Pages/PaymentPage';
 import EventDetails from './Pages/EventDetails';
@@ -36,21 +33,9 @@ export class PluginMediquestUiClient extends Plugin {
     // this.app.addProviders()
     // this.app.router.add()
     this.app.addComponents({ Navbar });
-    this.app.router.add('home', {
-      path: '/home',
-      element: <Home />,
-    });
-    this.app.router.add('allEvenets', {
-      path: '/allEvents',
-      element: <AllEvents />,
-    });
     this.app.router.add('/about', {
       path: '/about',
       element: <About />,
-    });
-    this.app.router.add('plans', {
-      path: '/plans',
-      element: <Plans />,
     });
     this.app.router.add('login', {
       path: '/login',

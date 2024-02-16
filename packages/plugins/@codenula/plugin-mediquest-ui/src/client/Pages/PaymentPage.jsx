@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { COLLECTION_AUTH_TOKEN } from '../../myvars.js';
-import { RAZORPAY_API_KEY, RAZORPAY_API_SECRET } from '../../myvars.js';
+import { RAZORPAY_API_KEY } from '../../myvars.js';
 import Loader from '../Components/Loader.jsx';
-import './PaymentPage.css';
 const loadScript = (src) => {
   return new Promise((resolve) => {
     const script = document.createElement('script');

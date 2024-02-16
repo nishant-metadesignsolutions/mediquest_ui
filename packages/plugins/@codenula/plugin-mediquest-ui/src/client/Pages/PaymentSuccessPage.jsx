@@ -1,16 +1,14 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { COLLECTION_AUTH_TOKEN } from '../../myvars';
 import Loader from '../Components/Loader';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
 import { getAllMessages } from '../utils/message_templates';
 import StyledText from '../Components/StyledText';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-// import './PaymentSuccessPage.css';
 
 const PaymentSuccessPage = () => {
   const { eventId, transactionId, formValues, attendeeId, amount, mobNo } = useParams();

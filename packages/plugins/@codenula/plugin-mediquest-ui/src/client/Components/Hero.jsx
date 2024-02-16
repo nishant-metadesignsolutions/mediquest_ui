@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
 

@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// import './RegistrationCompletePage.css';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
-import { COLLECTION_AUTH_TOKEN } from '../../myvars';
-import { RAZORPAY_API_KEY, RAZORPAY_API_SECRET } from '../../myvars.js';
+import { RAZORPAY_API_KEY } from '../../myvars.js';
 import Loader from '../Components/Loader';
 import { getAllMessages } from '../utils/message_templates';
 import StyledText from '../Components/StyledText';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import { getCountry, getCountryCode } from '../utils/getData';
 import { getPaymentCategories } from '../utils/getData';
 
@@ -197,13 +195,6 @@ const RegistrationCompletePage = () => {
       setLoading(true);
     }
   }, [accEvent, messages, payment]);
-  // useEffect(() => {
-  //   if (!messages) {
-  //     setLoading(true);
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // }, [messages]);
 
   const handleProceedToPay = () => {
     if (parseInt(amtToPay) === 0) {

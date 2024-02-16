@@ -30,37 +30,6 @@ export const RegistrationForm = () => {
 
     fetchData();
   }, [eventId]);
-  // const renderInputField = (item) => {
-  //   if (item.uiSchema && item.uiSchema.enum) {
-  //     if (item.name === 'areas_of_interest') {
-  //       return (
-  //         <div>
-  //           {item.uiSchema.enum.map((enumItem) => (
-  //             <label key={enumItem.value}>
-  //               <input type="checkbox" value={enumItem.value} />
-  //               {enumItem.label}
-  //             </label>
-  //           ))}
-  //         </div>
-  //       );
-  //     } else {
-  //       return (
-  //         <select>
-  //           {item.uiSchema.enum.map((enumItem) => (
-  //             <option key={enumItem.value} value={enumItem.value}>
-  //               {enumItem.label}
-  //             </option>
-  //           ))}
-  //         </select>
-  //       );
-  //     }
-  //   } else if (item.type === 'belongsTo') {
-  //     return;
-  //   } else {
-  //     return <input type="text" />;
-  //   }
-  // };
-
   return (
     <div>
       <DynamicForm formData={data} />

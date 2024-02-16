@@ -3,13 +3,12 @@ import { COLLECTION_AUTH_TOKEN } from '../../myvars.js';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader.jsx';
 import { Popup } from './Popup.jsx';
-// import './DynamicForm.css';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { sendEmail, sendSMS } from '../utils/sms.js';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import {
   getCity,
   getState,

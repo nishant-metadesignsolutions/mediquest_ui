@@ -1,6 +1,5 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import React, { useMemo } from 'react';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 import Loader from '../Components/Loader';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';

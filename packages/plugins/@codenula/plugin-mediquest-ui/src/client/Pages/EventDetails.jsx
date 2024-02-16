@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { AccordionItem } from '../Components/Accordion';
-// import './EventDetails.css';
 import Loader from '../Components/Loader';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -10,7 +8,7 @@ import { Venue } from '../Components/Venue';
 import { getVenue } from '../utils/getData';
 import StyledText from '../Components/StyledText';
 import { EventPageHero } from '../Components/EventPageHero';
-import { EventDetailsProvider, useAllEventsData } from '../context/EventDetailsProvider';
+import { useAllEventsData } from '../context/EventDetailsProvider';
 
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';

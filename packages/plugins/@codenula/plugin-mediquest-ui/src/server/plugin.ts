@@ -125,13 +125,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const mailOptions = {
-  from: 'info@accasia2024.in',
-  to: 'nishant@metadesignsolutions.co.uk',
-  subject: 'mediquest',
-  text: 'hello from mediquest',
-};
-
 export class PluginMediquestUiServer extends Plugin {
   async afterAdd() {}
 
