@@ -19,9 +19,11 @@ const getOrderDetails = async (orderID) => {
   });
 
   const res = await data.json();
-  const allPayment = res.data.items;
-  const lastPayment = allPayment[allPayment.length - 1];
-  return lastPayment;
+  if (res && res.data) {
+    const allPayment = res.data.items;
+    const lastPayment = allPayment[allPayment.length - 1];
+    return lastPayment;
+  }
 };
 async function updatePaymentStatusFailed(paymentAttempted, attendeeId) {
   const attendeeUpdateURL = `https://mediquest.codenula.com/api/attendees:update?filterByTk=${parseInt(attendeeId)}`;
