@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';

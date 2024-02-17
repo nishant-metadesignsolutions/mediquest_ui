@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../Components/Loader';
 import { useAllEventsData } from '../context/EventDetailsProvider';

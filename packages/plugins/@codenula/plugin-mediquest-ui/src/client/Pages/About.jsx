@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAllEventsData } from '../context/EventDetailsProvider';
 import Loader from '../Components/Loader';
 import Navbar from '../Components/Navbar';

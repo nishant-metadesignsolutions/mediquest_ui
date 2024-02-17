@@ -1,5 +1,5 @@
 // Navbar.js
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAllEventsData } from '../context/EventDetailsProvider';
 import '../assets2/css/main.min.css';
@@ -43,86 +43,10 @@ const Navbar = () => {
     setActiveMenuItem(menuItem);
   };
   return (
-    // <nav className="navbar">
-    //   <div className="logo">
-    //     <div>
-    //       <img src={globe_icon} alt="globeIcon" className="icon" />
-    //     </div>
-    //     <div>
-    //       <div className="logo-text"> Mediquest </div>
-    //       <div className="logo-text-small">An Event Management Company</div>
-    //     </div>
-    //   </div>
-    //   <div className="nav-links">
-    //     <div className=".nav-link">
-    //       <Link to="/home">Home</Link>
-    //     </div>
-    //     <div className=".nav-link">
-    //       <Link to="/allEvents">All Events</Link>
-    //     </div>
-    //     <div className=".nav-link">
-    //       <Link to="/about">About</Link>
-    //     </div>
-    //     <div className=".nav-link">
-    //       <Link to="/plans">Plans & Pricing</Link>
-    //     </div>
-    //     <div className=".nav-link">
-    //       <Link to="/login">
-    //         <button className="logIn-button">
-    //           <img src={profile_user} alt="globeIcon" className="user-icon" />
-    //           Log In
-    //         </button>
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </nav>
     <>
       {myLoader && <Loader />}
       {!myLoader && (
         <>
-          {/* <header className="header-cntr">
-            <div className="media-holder">
-              <Link to="/home2" className="logo">
-                <img src={accEvent ? `https://mediquest.codenula.com${accEvent.event_banner[0].url}` : ''} alt="" />
-              </Link>
-            </div>
-          </header> */}
-
-          {/* <section className="menu-box">
-            <div className="container">
-              <div className="menu-toggle">
-                <button className="btn-toggle">
-                  <i className="fa fa-bars" aria-hidden="true"></i>
-                </button>
-              </div>
-              <nav className="header-navbar">
-                <ul className="menu-list show">
-                  <li>
-                    <a href="#">Home</a>
-                  </li>
-                  <li>
-                    <a href="#">Faculty</a>
-                  </li>
-                  <li>
-                    <a href="#">Chair Persons</a>
-                  </li>
-                  <li>
-                    <a href="#">Scientific Program</a>
-                  </li>
-                  <li>
-                    <a href="#">Venue</a>
-                  </li>
-                  <li>
-                    <a href="#">ABOUT US</a>
-                  </li>
-                  <li>
-                    <a href="#">Contact US</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </section> */}
-
           <header className={`header-cntr ${scrolled ? 'scrolled' : ''}`}>
             <div className="media-holder">
               <Link to="/home2" className="logo">

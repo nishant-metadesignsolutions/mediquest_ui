@@ -1,6 +1,6 @@
 // PaymentPendingPage.jsx
 
-import React from 'react';
+
 import './PaymentPendingPage.css';
 
 const PaymentPendingPage = () => {

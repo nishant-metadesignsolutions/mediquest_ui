@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useState, createContext, useContext, useEffect } from 'react';
 import { COLLECTION_AUTH_TOKEN } from '../../myvars';
 import { getFooter } from '../utils/getData';

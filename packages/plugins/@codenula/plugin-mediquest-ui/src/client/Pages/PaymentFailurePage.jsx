@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loader from '../Components/Loader';
 import { useAllEventsData } from '../context/EventDetailsProvider';

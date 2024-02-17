@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Loader from './Loader.jsx';
 import '../assets2/css/main.min.css';
 import '../assets2/css/external.css';

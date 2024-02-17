@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAllEventsData } from '../context/EventDetailsProvider';
 import '../assets2/css/main.min.css';

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useState, createContext, useContext, useEffect } from 'react';
 import { getCountry, getState, getCity } from '../utils/getData';
 

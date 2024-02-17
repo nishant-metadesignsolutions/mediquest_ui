@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { COLLECTION_AUTH_TOKEN } from '../../myvars.js';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader.jsx';

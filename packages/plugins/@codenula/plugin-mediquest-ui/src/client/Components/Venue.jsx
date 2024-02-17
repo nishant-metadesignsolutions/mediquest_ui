@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import StyledText from './StyledText.jsx';
 import '../assets2/css/main.min.css';
