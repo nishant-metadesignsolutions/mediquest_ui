@@ -8,9 +8,17 @@ import { ChangeEvent, useCallback, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
-import { AssociationFilter, useFormActiveFields, useFormBlockContext, useTableBlockContext } from '../..';
+import {
+  AssociationFilter,
+  useCollectionManager,
+  useCollectionRecord,
+  useDataSourceHeaders,
+  useFormActiveFields,
+  useFormBlockContext,
+  useTableBlockContext,
+} from '../..';
 import { useAPIClient, useRequest } from '../../api-client';
-import { useCollection, useCollectionManager } from '../../collection-manager';
+import { useCollectionManager_deprecated, useCollection_deprecated } from '../../collection-manager';
 import { useFilterBlock } from '../../filter-provider/FilterProvider';
 import { mergeFilter, transformToFilter } from '../../filter-provider/utils';
 import { useRecord } from '../../record-provider';
@@ -99,7 +107,7 @@ export function useCollectValuesToSubmit() {
   const form = useForm();
   const filterByTk = useFilterByTk();
   const { field, resource } = useBlockRequestContext();
-  const { fields, getField, getTreeParentField, name } = useCollection();
+  const { fields, getField, getTreeParentField, name } = useCollection_deprecated();
   const fieldNames = fields.map((field) => field.name);
   const { fieldSchema } = useActionContext();
   const { getActiveFieldsName } = useFormActiveFields() || {};
@@ -173,6 +181,8 @@ export function useCollectValuesToSubmit() {
 }
 
 export const useCreateActionProps = () => {
+  const filterByTk = useFilterByTk();
+  const record = useCollectionRecord();
   const form = useForm();
   const { field, resource, __parent } = useBlockRequestContext();
   const { setVisible } = useActionContext();
@@ -184,7 +194,7 @@ export const useCreateActionProps = () => {
   const { t } = useTranslation();
   const { updateAssociationValues } = useFormBlockContext();
   const collectValues = useCollectValuesToSubmit();
-  const action = actionField.componentProps.saveMode || 'create';
+  const action = record.isNew ? 'create' : 'update';
   const filterKeys = actionField.componentProps.filterKeys?.checked || [];
   return {
     async onClick() {
@@ -200,6 +210,7 @@ export const useCreateActionProps = () => {
         const data = await resource[action]({
           values,
           filterKeys: filterKeys,
+          filterByTk,
           // TODO(refactor): should change to inject by plugin
           triggerWorkflows: triggerWorkflows?.length
             ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
@@ -253,7 +264,7 @@ export const useAssociationCreateActionProps = () => {
   const { setVisible, fieldSchema } = useActionContext();
   const actionSchema = useFieldSchema();
   const actionField = useField();
-  const { fields, getField, getTreeParentField, name } = useCollection();
+  const { fields, getField, getTreeParentField, name } = useCollection_deprecated();
   const compile = useCompile();
   const filterByTk = useFilterByTk();
   const currentRecord = useRecord();
@@ -383,8 +394,8 @@ export const useFilterBlockActionProps = () => {
   const actionField = useField();
   const fieldSchema = useFieldSchema();
   const { getDataBlocks } = useFilterBlock();
-  const { name } = useCollection();
-  const { getCollectionJoinField } = useCollectionManager();
+  const { name } = useCollection_deprecated();
+  const { getCollectionJoinField } = useCollectionManager_deprecated();
 
   actionField.data = actionField.data || {};
 
@@ -488,7 +499,7 @@ export const useCustomizeUpdateActionProps = () => {
   const { modal } = App.useApp();
   const variables = useVariables();
   const localVariables = useLocalVariables({ currentForm: form });
-  const { name, getField } = useCollection();
+  const { name, getField } = useCollection_deprecated();
 
   return {
     async onClick() {
@@ -576,8 +587,8 @@ export const useCustomizeBulkUpdateActionProps = () => {
   const { modal } = App.useApp();
   const variables = useVariables();
   const record = useRecord();
-  const { name, getField } = useCollection();
-  const localVariables = useLocalVariables({ currentRecord: { __parent: record, __collectionName: name } });
+  const { name, getField } = useCollection_deprecated();
+  const localVariables = useLocalVariables();
 
   return {
     async onClick() {
@@ -685,7 +696,7 @@ export const useCustomizeRequestActionProps = () => {
   const actionSchema = useFieldSchema();
   const compile = useCompile();
   const form = useForm();
-  const { fields, getField } = useCollection();
+  const { fields, getField } = useCollection_deprecated();
   const { field, resource, __parent, service } = useBlockRequestContext();
   const currentRecord = useRecord();
   const currentUserContext = useCurrentUserContext();
@@ -777,7 +788,7 @@ export const useUpdateActionProps = () => {
   const { setVisible } = useActionContext();
   const actionSchema = useFieldSchema();
   const navigate = useNavigate();
-  const { fields, getField, name } = useCollection();
+  const { fields, getField, name } = useCollection_deprecated();
   const compile = useCompile();
   const actionField = useField();
   const { updateAssociationValues } = useFormBlockContext();
@@ -985,6 +996,7 @@ export const useDetailsPaginationProps = () => {
     current: ctx.service?.data?.meta?.page || 1,
     total: count,
     pageSize: 1,
+    showSizeChanger: false,
     async onChange(page) {
       const params = ctx.service?.params?.[0];
       ctx.service.run({ ...params, page });
@@ -1000,14 +1012,17 @@ export const useAssociationFilterProps = () => {
   const collectionField = AssociationFilter.useAssociationField();
   const { service, props: blockProps } = useBlockRequestContext();
   const fieldSchema = useFieldSchema();
-  const valueKey = collectionField?.targetKey || 'id';
+  const cm = useCollectionManager_deprecated();
+  const valueKey = collectionField?.target ? cm.getCollection(collectionField.target)?.getPrimaryKey() : 'id';
   const labelKey = fieldSchema['x-component-props']?.fieldNames?.label || valueKey;
   const field = useField();
   const collectionFieldName = collectionField.name;
+  const headers = useDataSourceHeaders(blockProps?.dataSource);
   const { data, params, run } = useRequest<{
     data: { [key: string]: any }[];
   }>(
     {
+      headers,
       resource: collectionField.target,
       action: 'list',
       params: {
@@ -1063,7 +1078,7 @@ export const useAssociationFilterProps = () => {
 };
 
 export const useOptionalFieldList = () => {
-  const { currentFields = [] } = useCollection();
+  const { currentFields = [] } = useCollection_deprecated();
 
   return currentFields.filter((field) => isOptionalField(field) && field.uiSchema.enum);
 };
@@ -1080,10 +1095,13 @@ export const useAssociationFilterBlockProps = () => {
   const { getDataBlocks } = useFilterBlock();
   const collectionFieldName = collectionField?.name;
   const field = useField();
+  const { props: blockProps } = useBlockRequestContext();
+  const headers = useDataSourceHeaders(blockProps?.dataSource);
+  const cm = useCollectionManager_deprecated();
 
   let list, handleSearchInput, params, run, data, valueKey, labelKey, filterKey;
 
-  valueKey = collectionField?.targetKey || 'id';
+  valueKey = collectionField?.target ? cm.getCollection(collectionField.target)?.getPrimaryKey() : 'id';
   labelKey = fieldSchema['x-component-props']?.fieldNames?.label || valueKey;
 
   // eslint-disable-next-line prefer-const
@@ -1091,6 +1109,7 @@ export const useAssociationFilterBlockProps = () => {
     data: { [key: string]: any }[];
   }>(
     {
+      headers,
       resource: collectionField?.target,
       action: 'list',
       params: {
@@ -1206,27 +1225,30 @@ export function getAssociationPath(str) {
   return str;
 }
 
-export const useAssociationNames = () => {
+export const useAssociationNames = (dataSource?: string) => {
   let updateAssociationValues = new Set([]);
   let appends = new Set([]);
-  const { getCollectionJoinField, getCollection } = useCollectionManager();
+  const { getCollectionJoinField, getCollection } = useCollectionManager_deprecated(dataSource);
   const fieldSchema = useFieldSchema();
   const _getAssociationAppends = (schema, str) => {
     schema.reduceProperties((pre, s) => {
       const prefix = pre || str;
-      const collectionField = s['x-collection-field'] && getCollectionJoinField(s['x-collection-field']);
+      const collectionField = s['x-collection-field'] && getCollectionJoinField(s['x-collection-field'], dataSource);
       const isAssociationSubfield = s.name.includes('.');
       const isAssociationField =
         collectionField && ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany'].includes(collectionField.type);
 
       // 根据联动规则中条件的字段获取一些 appends
       if (s['x-linkage-rules']) {
-        const rules = s['x-linkage-rules'];
-        rules.forEach(({ condition }) => {
-          const type = Object.keys(condition)[0] || '$and';
-          const list = condition[type];
+        const collectAppends = (obj) => {
+          const type = Object.keys(obj)[0] || '$and';
+          const list = obj[type];
 
           list.forEach((item) => {
+            if ('$and' in item || '$or' in item) {
+              return collectAppends(item);
+            }
+
             const fieldNames = getTargetField(item);
 
             // 只应该收集关系字段，只有大于 1 的时候才是关系字段
@@ -1234,6 +1256,11 @@ export const useAssociationNames = () => {
               appends.add(fieldNames.join('.'));
             }
           });
+        };
+
+        const rules = s['x-linkage-rules'];
+        rules.forEach(({ condition }) => {
+          collectAppends(condition);
         });
       }
 
